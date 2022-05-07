@@ -1,7 +1,7 @@
 # <a name="title">Taichi Voxel Challenge</a>
 
 <p align="center">
-<img src="./pyramids.png" width="75%"></img>
+<img src="./demo_pyramids.png" width="75%"></img>
 </p>
 
 
