@@ -6,6 +6,7 @@
 from scene import Scene
 import taichi as ti
 from taichi.math import *
+import numpy as np
 
 
 @ti.func
@@ -16,15 +17,29 @@ def dot_product(vec1, vec2):
     return res
 
 
+def printNormals(centerX: ti.f32, centerZ: ti.f32, size: ti.f32, theta: ti.f32):
+    center = [centerX, centerZ]
+    vertex = vec3(center[0], 3.**0.5 / 2 * size, center[1])
+    print("vertex =", vertex)
+    normals = np.array([[3.**0.5 / 2., 0.5, 0.], [0., 0.5, -3.**0.5 / 2.],  # 4 normals of the triangles of pyramidal
+                        [-3.**0.5 / 2., 0.5, 0.], [0., 0.5, 3.**0.5 / 2.]])
+    rotate = np.array([[ti.cos(theta), 0., -ti.sin(theta)], 
+                        [0., 1., 0.], 
+                        [ti.sin(theta), 0., ti.cos(theta)]])
+    print("normals @ rotate =", normals @ rotate)
+
+
 @ti.kernel
 def draw_pyramidal(centerX: ti.f32, centerZ: ti.f32, size: ti.f32, theta: ti.f32):
     center = [centerX, centerZ]
     vertex = vec3(center[0], 3.**0.5 / 2 * size, center[1])
+    print("vertex =", vertex)
     rotate = ti.Matrix([[ti.cos(theta), 0., -ti.sin(theta)], 
                         [0., 1., 0.], 
                         [ti.sin(theta), 0., ti.cos(theta)]])
     normals = ti.Matrix([[3.**0.5 / 2., 0.5, 0.], [0., 0.5, -3.**0.5 / 2.],  # 4 normals of the triangles of pyramidal
                          [-3.**0.5 / 2., 0.5, 0.], [0., 0.5, 3.**0.5 / 2.]])
+    print("normals =", normals)
     normals = normals @ rotate
 
     for I in ti.grouped(ti.ndrange((vertex[0] - size//2 * 2.**0.5, vertex[0] + size//2 * 2.**0.5), 
@@ -48,4 +63,9 @@ pi = 3.141592653589793
 draw_pyramidal(-64. + 32.*2.**0.5, -64. + 32.*2.**0.5, 64., pi/6.)
 draw_pyramidal(20., 20., 32., pi/3.)
 draw_pyramidal(64. - 13*2.**0.5, 64. - 13*2.**0.5, 26., pi/4.)
+
+printNormals(-64. + 32.*2.**0.5, -64. + 32.*2.**0.5, 64., pi/6.)
+printNormals(20., 20., 32., pi/3.)
+printNormals(64. - 13*2.**0.5, 64. - 13*2.**0.5, 26., pi/4.)
+
 scene.finish()

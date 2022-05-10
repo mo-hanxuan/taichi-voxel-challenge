@@ -1,9 +1,8 @@
-# <a name="title">Taichi Voxel Challenge</a>
+# <a name="title">Pyramids & Sphinx (Taichi Voxel Challenge)</a>
 
-<p align="center">
-<img src="./demo_pyramids.png" width="75%"></img>
-</p>
+<img src="README.assets/image-20220510163400401.png" alt="image-20220510163400401" style="zoom:70%;" />
 
+<img src="README.assets/image-20220510163430279.png" alt="image-20220510163430279" style="zoom:33%;" /><img src="README.assets/image-20220510163553191.png" alt="image-20220510163553191" style="zoom:50%;" />
 
 > Figure: result of `main.py`. 
 
@@ -11,9 +10,10 @@ We invite you to create your voxel artwork, by putting your [Taichi](https://git
 Refer to [taichi voxel challenge](https://github.com/taichi-dev/community/blob/main/events/voxel-challenge/reference-zh_cn.md) for more info.
 <br>
 
-## how to creat these pyramids
-The piramid is created by carving through 4 planes, and orientation of the planes can be roteted. 
-> each plane classifies the space into two sides, whereas 4 planes (in fact 5 including the floor) together classify the space into inside and outside of the pyramid object. 
+## how to create the pyramids and the Sphinx
+We use **polyhedrons** and **ellipses** as basic building blocks. 
+> + **polyhedron**: defined by several planes, each plane defined by plane normal (pointed to the outside of polyhedron) and a point on this plane
+> + **ellipse**: defined by center, three axises (with lengths) and orientation (where the orientation is defined by rotation axis and rotation angle of counter-clockwise)
 
 ## Installation
 
@@ -34,7 +34,7 @@ to install the dependencies of the voxel renderer.
 ## Quickstart
 
 ```sh
-python3 example1.py  # example2/3/.../7/8.py
+python3 main_pyramids_sphinx.py
 ```
 
 Mouse and keyboard interface:
@@ -49,7 +49,3 @@ Mouse and keyboard interface:
 <a href="https://github.com/yuanming-hu/voxel-art"><img src="https://github.com/taichi-dev/public_files/blob/master/voxel-challenge/tree2.jpg" width="45%"></img></a> <a href="https://github.com/neozhaoliang/voxel-challenge"><img src="https://github.com/taichi-dev/public_files/blob/master/voxel-challenge/desktop.jpg" width="45%"></img></a> 
 <a href="https://github.com/maajor/maajor-voxel-challenge"><img src="https://github.com/taichi-dev/public_files/blob/master/voxel-challenge/earring_girl.jpg" width="45%"></img></a>  <a href="https://github.com/rexwangcc/taichi-voxel-challenge"><img src="https://github.com/taichi-dev/public_files/blob/master/voxel-challenge/pika.jpg" width="45%"></img></a> 
 <a href="https://github.com/houkensjtu/qbao_voxel_art"><img src="https://github.com/taichi-dev/public_files/blob/master/voxel-challenge/yinyang.jpg" width="45%"></img></a>  <a href="https://github.com/ltt1598/voxel-challenge"><img src="https://github.com/taichi-dev/public_files/blob/master/voxel-challenge/lang.jpg" width="45%"></img></a> 
-
-## Show your artwork 
-
-Please put your artwork at the beginning of this README file. Replacing the `demo.jpg` file with your creation will do the job.
