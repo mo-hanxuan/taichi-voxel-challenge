@@ -3,6 +3,7 @@ import taichi as ti
 from taichi.math import *
 import numpy as np
 from math_utils import np_rotate_matrix
+import yaml
 
 @ti.data_oriented
 class Polyhedron:
@@ -65,26 +66,14 @@ scene.set_floor(-0.025, (1.0, 1.0, 1.0))
 scene.set_background_color((0.25, 0.15, 0.05))
 scene.set_directional_light(vec3(0.4, 0.4, 0.4), 0.2, vec3(0.25, 0.15, 0.05))
 
-Polyhedron(facetNormals=np.array([[ 0.75, 0.5, -0.4330127], [-0.4330127, 0.5, -0.75], 
-                                  [-0.75, 0.5,  0.4330127], [ 0.4330127, 0.5,  0.75], [0., -1., 0.]]), 
-           facetPoints=np.array([[-18.745166, 55.42562584, -18.745166], [-18.745166, 55.42562584, -18.745166], 
-                                 [-18.745166, 55.42562584, -18.745166], [-18.745166, 55.42562584, -18.745166], [0., 0., 0.]])).set_voxels()
-Polyhedron(facetNormals=np.array([[ 0.4330127, 0.5, -0.75], [-0.75, 0.5, -0.4330127], 
-                                  [-0.4330127, 0.5,  0.75], [ 0.75, 0.5,  0.4330127], [0., -1., 0.]]), 
-           facetPoints=np.array([[20., 27.71281292, 20.], [20., 27.71281292, 20.], 
-                                 [20., 27.71281292, 20.], [20., 27.71281292, 20.], [0., 0., 0.]])).set_voxels()
-Polyhedron(facetNormals=np.array([[ 0.61237244, 0.5, -0.61237244], [-0.61237244, 0.5, -0.61237244], 
-                                  [-0.61237244, 0.5, 0.61237244], [ 0.61237244, 0.5, 0.61237244], [0., -1., 0.]]), 
-           facetPoints=np.array([[45.61522369, 22.5166605, 45.61522369], [45.61522369, 22.5166605, 45.61522369], 
-                                 [45.61522369, 22.5166605, 45.61522369], [45.61522369, 22.5166605, 45.61522369], [0., 0., 0.]]), ).set_voxels()
-Polyhedron(facetNormals=np.array([[ 0.75, 0.5, -0.4330127], [-0.4330127, 0.5, -0.75], 
-                                  [-0.75, 0.5,  0.4330127], [ 0.4330127, 0.5,  0.75], 
-                                  [-0.3660254 , -1.41421356,  1.3660254 ], [ 1.3660254 , -1.41421356,  0.3660254 ],
-                                  [ 0.3660254 , -1.41421356, -1.3660254 ], [-1.3660254 , -1.41421356, -0.3660254 ]]), 
-           facetPoints=np.array([[-18.745166, 56, -18.745166], [-18.745166, 56, -18.745166], 
-                                 [-18.745166, 56, -18.745166], [-18.745166, 56, -18.745166], 
-                                 [-18.745166, 24., -18.745166], [-18.745166, 24., -18.745166], 
-                                 [-18.745166, 24., -18.745166], [-18.745166, 24., -18.745166]]), color=[0.7, 0.7, 0.7]).set_voxels()
+polyhedrons = yaml.load(open("./data.yaml", encoding='utf-8'))["polyhedrons"]  # polyhedrons of pyramids
+print("polyhedrons =", polyhedrons)
+for polyhedron in polyhedrons[:-1]:
+    Polyhedron(facetNormals=np.array(polyhedron["facetNormals"]),
+               facetPoints=np.array(polyhedron["facetPoints"]), ).set_voxels()
+Polyhedron(facetNormals=np.array(polyhedrons[-1]["facetNormals"]),
+           facetPoints=np.array(polyhedrons[-1]["facetPoints"]), color=[0.7, 0.7, 0.7]).set_voxels()    
+
 ### the Sphinx
 Ellip(center=[-32., 3., 45.], radiusX=26., radiusY=3., radiusZ=10., axis=[0., 1., 0.], theta=0., color=[0.7, 0.7, 0.7]).set_voxels()
 Ellip(center=[-32., 6., 45.], radiusX=24., radiusY=3., radiusZ=8., axis=[0., 1., 0.], theta=0., color=[0.7, 0.7, 0.7]).set_voxels()
