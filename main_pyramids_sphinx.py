@@ -66,7 +66,7 @@ scene.set_floor(-0.025, (1.0, 1.0, 1.0))
 scene.set_background_color((0.25, 0.15, 0.05))
 scene.set_directional_light(vec3(0.4, 0.4, 0.4), 0.2, vec3(0.25, 0.15, 0.05))
 
-polyhedrons = yaml.load(open("./data.yaml", encoding='utf-8'))["polyhedrons"]  # polyhedrons of pyramids
+polyhedrons = yaml.load(open("./data.yml", encoding='utf-8'))["polyhedrons"]  # polyhedrons of pyramids
 print("polyhedrons =", polyhedrons)
 for polyhedron in polyhedrons[:-1]:
     Polyhedron(facetNormals=np.array(polyhedron["facetNormals"]),

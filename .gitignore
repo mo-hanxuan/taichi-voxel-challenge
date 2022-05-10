@@ -7,3 +7,4 @@ imgui.ini
 .idea
 screenshot/
 __pycache__/
+*.pptx
